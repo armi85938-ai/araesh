@@ -3,17 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آرایشگاه مردانه پرستیژ | رزرو نوبت</title>
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <title>Ghichi & Mo Barbershop | رزرو آنلاین</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap');
+
         :root {
-            --bg-dark: #0f0f12;
-            --bg-card: #1a1a20;
-            --gold: #d4af37;
-            --gold-light: #f3e5ab;
-            --text-main: #f5f5f5;
-            --text-muted: #a0a0a0;
-            --success: #00c853;
+            --bg-main: #0a0a0a;
+            --bg-card: #141414;
+            --bg-card2: #1a1a1a;
+            --bg-input: #1e1e1e;
+            --green: #00c853;
+            --green-dark: #009624;
+            --green-glow: rgba(0, 200, 83, 0.15);
+            --gold: #c9a84c;
+            --gold-light: #e8d48b;
+            --gold-dark: #a07c2a;
+            --text-white: #ffffff;
+            --text-gray: #8a8a8a;
+            --text-light: #b0b0b0;
+            --border: #2a2a2a;
+            --border-green: #00c853;
         }
 
         * {
@@ -24,327 +34,718 @@
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background: var(--bg-main);
+            color: var(--text-white);
             min-height: 100vh;
             overflow-x: hidden;
+        }
+
+        /* ============ HERO SECTION ============ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 70% 50%, rgba(201, 168, 76, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 30% 80%, rgba(0, 200, 83, 0.05) 0%, transparent 50%),
+                linear-gradient(180deg, #0a0a0a 0%, #111 100%);
+            z-index: 0;
+        }
+
+        .hero-particles {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: sparkle 3s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) { top: 20%; left: 30%; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 40%; left: 60%; animation-delay: 0.5s; }
+        .particle:nth-child(3) { top: 60%; left: 20%; animation-delay: 1s; }
+        .particle:nth-child(4) { top: 30%; left: 80%; animation-delay: 1.5s; }
+        .particle:nth-child(5) { top: 70%; left: 50%; animation-delay: 2s; }
+        .particle:nth-child(6) { top: 15%; left: 70%; animation-delay: 0.3s; }
+        .particle:nth-child(7) { top: 80%; left: 35%; animation-delay: 0.8s; }
+        .particle:nth-child(8) { top: 50%; left: 90%; animation-delay: 1.2s; }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 40px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .hero-right {
+            text-align: right;
+        }
+
+        .logo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
             position: relative;
         }
 
-        /* --- Background Animations (Scissors & Hair) --- */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .logo-icon svg {
             width: 100%;
             height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.15;
         }
 
-        .scissors {
-            position: absolute;
-            font-size: 4rem;
-            animation: floatScissors 8s infinite ease-in-out;
-        }
-        .scissors:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
-        .scissors:nth-child(2) { top: 70%; left: 85%; animation-delay: 2s; font-size: 3rem;}
-        .scissors:nth-child(3) { top: 40%; left: 90%; animation-delay: 4s; font-size: 5rem;}
-        .scissors:nth-child(4) { top: 80%; left: 10%; animation-delay: 1s; font-size: 3.5rem;}
-
-        .hair-strand {
-            position: absolute;
-            width: 150px;
-            height: 150px;
-            border: 3px solid var(--gold);
-            border-radius: 50% 0 50% 0;
-            animation: floatHair 10s infinite linear;
-        }
-        .hair-strand:nth-child(5) { top: 20%; left: 80%; animation-delay: 0s; }
-        .hair-strand:nth-child(6) { top: 60%; left: 15%; animation-delay: 3s; width: 100px; height: 100px;}
-
-        @keyframes floatScissors {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(20deg); }
-        }
-
-        @keyframes floatHair {
-            0% { transform: rotate(0deg) scale(1); opacity: 0.5; }
-            50% { transform: rotate(180deg) scale(1.1); opacity: 0.8; }
-            100% { transform: rotate(360deg) scale(1); opacity: 0.5; }
-        }
-
-        /* --- Main Container --- */
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            text-align: center;
-            padding: 40px 0;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 900;
             color: var(--gold);
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-            margin-bottom: 10px;
+            letter-spacing: 3px;
         }
 
-        header p {
-            color: var(--text-muted);
+        .logo-sub {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 900;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .hero-title .gold {
+            color: var(--gold);
+        }
+
+        .hero-title .white {
+            color: var(--text-white);
+        }
+
+        .hero-desc {
+            color: var(--text-light);
             font-size: 1.1rem;
+            margin-bottom: 40px;
+            line-height: 1.8;
         }
 
-        .screen {
-            display: none;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .screen.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- Form Elements --- */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid #333;
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .card-title {
-            font-size: 1.3rem;
-            color: var(--gold);
-            margin-bottom: 20px;
+        .hero-features {
             display: flex;
+            gap: 40px;
+            justify-content: center;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 10px;
         }
 
-        .input-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .input-group.full {
-            grid-template-columns: 1fr;
-        }
-
-        input[type="text"], input[type="tel"], input[type="password"] {
-            width: 100%;
-            padding: 14px;
-            background: #25252c;
-            border: 1px solid #444;
-            border-radius: 10px;
-            color: white;
-            font-size: 1rem;
+        .feature-icon {
+            width: 55px;
+            height: 55px;
+            border: 1.5px solid var(--gold);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--gold);
             transition: 0.3s;
         }
 
-        input:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        .feature-icon:hover {
+            background: rgba(201, 168, 76, 0.1);
+            transform: translateY(-3px);
         }
 
-        /* --- Services Grid --- */
+        .feature-text {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Hero Left - Form */
+        .hero-left {
+            position: relative;
+        }
+
+        .hero-image-area {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .hero-man {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            display: block;
+            position: relative;
+        }
+
+        .hero-man-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+            filter: brightness(0.8);
+        }
+
+        .floating-scissors {
+            position: absolute;
+            top: 20%;
+            left: -20px;
+            font-size: 5rem;
+            animation: floatScissors 4s infinite ease-in-out;
+            filter: drop-shadow(0 0 20px rgba(201, 168, 76, 0.5));
+            z-index: 3;
+        }
+
+        @keyframes floatScissors {
+            0%, 100% { transform: translateY(0) rotate(-15deg); }
+            50% { transform: translateY(-20px) rotate(15deg); }
+        }
+
+        .hero-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+        }
+
+        .hero-form::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-white);
+            font-size: 1rem;
+            margin-bottom: 15px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .form-input input {
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        .form-input input::placeholder {
+            color: var(--text-gray);
+        }
+
+        .form-input:focus-within {
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(201, 168, 76, 0.1);
+        }
+
+        .form-input .icon {
+            color: var(--text-gray);
+            font-size: 1.2rem;
+        }
+
+        .btn-gold {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+            color: #000;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Vazirmatn', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(201, 168, 76, 0.3);
+        }
+
+        .btn-gold .arrow {
+            font-size: 1.3rem;
+        }
+
+        /* ============ MAIN CONTENT ============ */
+        .main-content {
+            display: none;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 30px 40px;
+        }
+
+        .main-content.active {
+            display: block;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-header-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(201, 168, 76, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .panel-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        /* Services */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
         }
 
-        .service-item {
-            background: #25252c;
-            border: 2px solid transparent;
-            border-radius: 12px;
-            padding: 15px;
+        .service-card {
+            background: var(--bg-card2);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
             cursor: pointer;
             transition: 0.3s;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 14px;
+            position: relative;
         }
 
-        .service-item:hover {
-            background: #2d2d36;
+        .service-card:hover {
+            border-color: #444;
+            transform: translateY(-2px);
         }
 
-        .service-item.selected {
-            border-color: var(--gold);
-            background: rgba(212, 175, 55, 0.1);
+        .service-card.selected {
+            border-color: var(--green);
+            background: rgba(0, 200, 83, 0.05);
         }
 
-        .service-item .title {
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        .service-item .price {
-            color: var(--gold);
-            font-weight: bold;
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-
-        /* --- Date & Time --- */
-        .date-display {
-            background: linear-gradient(135deg, #2a2a32, #1f1f25);
-            padding: 20px;
+        .service-card .svc-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-input);
             border-radius: 12px;
-            text-align: center;
-            border: 1px solid var(--gold);
-            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
         }
 
-        .date-display .day {
+        .service-card.selected .svc-icon {
+            background: rgba(0, 200, 83, 0.15);
+        }
+
+        .service-card .svc-info {
+            flex: 1;
+        }
+
+        .service-card .svc-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .service-card .svc-price {
+            font-size: 0.85rem;
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .service-card .check-mark {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .service-card.selected .check-mark {
+            background: var(--green);
+            border-color: var(--green);
+            color: white;
+        }
+
+        /* Cart Summary */
+        .cart-summary {
+            margin-top: 20px;
+            background: var(--bg-card2);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cart-icon-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cart-icon {
+            position: relative;
             font-size: 1.8rem;
-            color: var(--gold);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--green);
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
         }
 
-        .date-display .full-date {
-            color: var(--text-muted);
-            margin-top: 5px;
+        .cart-total {
+            text-align: left;
+        }
+
+        .cart-total .label {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+
+        .cart-total .amount {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--green);
+        }
+
+        /* Date Selection */
+        .date-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .date-card {
+            background: var(--bg-card2);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .date-card:hover {
+            border-color: #444;
+        }
+
+        .date-card.selected {
+            border-color: var(--green);
+            background: rgba(0, 200, 83, 0.08);
+        }
+
+        .date-card .day-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .date-card .day-label {
+            font-size: 0.85rem;
+            color: var(--green);
+            margin-bottom: 4px;
+        }
+
+        .date-card .day-date {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .date-card .cal-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        /* Time Selection */
+        .time-section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: var(--text-light);
         }
 
         .time-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
         }
 
         .time-slot {
-            background: #25252c;
-            border: 1px solid #444;
-            padding: 12px;
+            background: var(--bg-card2);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 10px;
             text-align: center;
-            border-radius: 10px;
             cursor: pointer;
             transition: 0.3s;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            font-weight: 500;
         }
 
         .time-slot:hover {
-            background: #333;
+            border-color: #555;
+            background: #222;
         }
 
         .time-slot.selected {
-            background: var(--gold);
+            background: var(--green);
+            border-color: var(--green);
+            color: white;
+            font-weight: 700;
+        }
+
+        .btn-continue {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
             color: #000;
-            font-weight: bold;
-            border-color: var(--gold);
-        }
-
-        /* --- Footer / Total --- */
-        .footer-bar {
-            position: sticky;
-            bottom: 20px;
-            background: rgba(26, 26, 32, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--gold);
-            border-radius: 16px;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
-            margin-top: 30px;
-        }
-
-        .total-price {
-            font-size: 1.2rem;
-        }
-
-        .total-price span {
-            color: var(--gold);
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .btn {
-            padding: 14px 30px;
             border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            border-radius: 14px;
+            font-size: 1.15rem;
+            font-weight: 700;
             cursor: pointer;
             transition: 0.3s;
             font-family: 'Vazirmatn', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--gold), #b5952f);
-            color: #000;
-        }
-
-        .btn-primary:hover {
+        .btn-continue:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 30px rgba(201, 168, 76, 0.3);
         }
 
-        .btn-secondary {
-            background: #333;
-            color: white;
-        }
-
-        /* --- Payment Screen --- */
-        .payment-box {
-            max-width: 450px;
+        /* ============ PAYMENT SCREEN ============ */
+        .payment-screen {
+            display: none;
+            max-width: 600px;
             margin: 40px auto;
-            background: #fff;
-            color: #333;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            padding: 0 20px;
+        }
+
+        .payment-screen.active {
+            display: block;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .payment-card {
+            background: linear-gradient(145deg, #0d2818, #0a1f14, #0d2818);
+            border: 1px solid rgba(0, 200, 83, 0.3);
+            border-radius: 24px;
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--green), transparent);
         }
 
         .payment-header {
-            text-align: center;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
         }
 
-        .payment-header img {
-            width: 60px;
-            margin-bottom: 10px;
+        .payment-header .back-btn {
+            background: none;
+            border: none;
+            color: var(--text-gray);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        .payment-header h3 {
-            color: #0055aa;
+        .payment-header .back-btn:hover {
+            color: var(--green);
+        }
+
+        .payment-header h2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+        }
+
+        .payment-header h2 .lock-icon {
+            color: var(--green);
+        }
+
+        .payment-subtitle {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+
+        .pay-field {
+            margin-bottom: 18px;
+        }
+
+        .pay-field label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-bottom: 8px;
+        }
+
+        .pay-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
         }
 
         .pay-input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 1rem;
-            color: #333;
+            padding: 16px 20px;
+            padding-left: 50px;
+            background: rgba(255,255,255,0.05);
+            border: 1.5px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            color: var(--text-white);
+            font-size: 1.1rem;
+            font-family: 'Vazirmatn', sans-serif;
             direction: ltr;
             text-align: left;
+            transition: 0.3s;
         }
 
         .pay-input:focus {
-            border-color: #0055aa;
             outline: none;
+            border-color: var(--green);
+            box-shadow: 0 0 15px rgba(0, 200, 83, 0.1);
+        }
+
+        .pay-input::placeholder {
+            color: rgba(255,255,255,0.2);
+        }
+
+        .pay-input-icon {
+            position: absolute;
+            left: 18px;
+            color: var(--text-gray);
+            font-size: 1.3rem;
         }
 
         .pay-row {
@@ -353,306 +754,652 @@
             gap: 15px;
         }
 
-        .btn-pay {
+        .btn-pay-green {
             width: 100%;
-            background: #0055aa;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--green-dark), var(--green));
             color: white;
-            padding: 15px;
             border: none;
-            border-radius: 8px;
+            border-radius: 14px;
             font-size: 1.2rem;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Vazirmatn', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             margin-top: 10px;
         }
 
-        /* --- Success Screen --- */
-        .success-box {
+        .btn-pay-green:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 200, 83, 0.3);
+        }
+
+        .payment-footer {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        .payment-footer-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+
+        .payment-footer-item .pf-icon {
+            color: var(--green);
+            font-size: 1.2rem;
+        }
+
+        /* ============ SUCCESS SCREEN ============ */
+        .success-screen {
+            display: none;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .success-screen.active {
+            display: block;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .success-card {
+            background: linear-gradient(145deg, #0d2818, #0a1f14);
+            border: 1px solid rgba(0, 200, 83, 0.3);
+            border-radius: 24px;
+            padding: 40px;
             text-align: center;
-            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .checkmark-circle {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 30px;
+        .success-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--green), transparent);
         }
 
-        .checkmark-circle svg {
-            width: 100%;
-            height: 100%;
+        .confetti-container {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
         }
 
-        .circle {
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            animation: confettiFall 3s ease-out forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(500px) rotate(720deg); opacity: 0; }
+        }
+
+        .success-checkmark {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            position: relative;
+        }
+
+        .success-checkmark .circle-bg {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(0, 200, 83, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulseGreen 2s infinite;
+        }
+
+        @keyframes pulseGreen {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(0, 200, 83, 0); }
+        }
+
+        .success-checkmark svg {
+            width: 50px;
+            height: 50px;
+        }
+
+        .success-checkmark svg .check-path {
+            stroke: var(--green);
+            stroke-width: 3;
             fill: none;
-            stroke: var(--success);
-            stroke-width: 4;
-            stroke-dasharray: 350;
-            stroke-dashoffset: 350;
-            animation: drawCircle 1s ease-out forwards;
-        }
-
-        .check {
-            fill: none;
-            stroke: var(--success);
-            stroke-width: 6;
             stroke-linecap: round;
             stroke-linejoin: round;
-            stroke-dasharray: 100;
-            stroke-dashoffset: 100;
-            animation: drawCheck 0.6s 0.8s ease-out forwards;
-        }
-
-        @keyframes drawCircle {
-            to { stroke-dashoffset: 0; }
+            stroke-dasharray: 50;
+            stroke-dashoffset: 50;
+            animation: drawCheck 0.8s 0.5s ease-out forwards;
         }
 
         @keyframes drawCheck {
             to { stroke-dashoffset: 0; }
         }
 
-        .success-box h2 {
-            color: var(--success);
+        .success-title {
             font-size: 2rem;
-            margin-bottom: 15px;
+            font-weight: 900;
+            margin-bottom: 10px;
         }
 
-        .success-box p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            line-height: 2;
+        .success-desc {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 30px;
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            .input-group { grid-template-columns: 1fr; }
-            .services-grid { grid-template-columns: 1fr; }
-            .footer-bar { flex-direction: column; gap: 15px; }
-            .btn { width: 100%; }
-            header h1 { font-size: 1.8rem; }
+        .success-details {
+            background: rgba(0, 200, 83, 0.05);
+            border: 1px solid rgba(0, 200, 83, 0.2);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: right;
+            margin-bottom: 30px;
         }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-row .d-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        .detail-row .d-value {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .detail-row .d-value.green {
+            color: var(--green);
+        }
+
+        .btn-home {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--green-dark), var(--green));
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Vazirmatn', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 200, 83, 0.3);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 900px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 20px;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .time-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-features {
+                gap: 20px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .time-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .pay-row {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-features {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
     </style>
 </head>
 <body>
 
-    <!-- Background Animations -->
-    <div class="bg-animation">
-        <div class="scissors">✂️</div>
-        <div class="scissors">✂️</div>
-        <div class="scissors">✂️</div>
-        <div class="scissors">✂️</div>
-        <div class="hair-strand"></div>
-        <div class="hair-strand"></div>
+    <!-- ==================== HERO SCREEN ==================== -->
+    <div id="heroScreen" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+
+        <div class="hero-content">
+            <!-- Right Side -->
+            <div class="hero-right">
+                <div class="logo-area">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Crown -->
+                            <path d="M25 45 L30 25 L40 35 L50 15 L60 35 L70 25 L75 45 Z" fill="#c9a84c" stroke="#c9a84c" stroke-width="1.5"/>
+                            <!-- Scissors Left -->
+                            <circle cx="35" cy="65" r="12" stroke="#c9a84c" stroke-width="2.5" fill="none"/>
+                            <line x1="43" y1="57" x2="65" y2="30" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round"/>
+                            <!-- Scissors Right -->
+                            <circle cx="65" cy="65" r="12" stroke="#c9a84c" stroke-width="2.5" fill="none"/>
+                            <line x1="57" y1="57" x2="35" y2="30" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round"/>
+                            <!-- Center dot -->
+                            <circle cx="50" cy="48" r="3" fill="#c9a84c"/>
+                        </svg>
+                    </div>
+                    <div class="logo-text">GHICHI & MO</div>
+                    <div class="logo-sub">BARBERSHOP</div>
+                </div>
+
+                <h1 class="hero-title">
+                    <span class="white">بهترین نسخه</span><br>
+                    <span class="gold">خـودت باش</span>
+                </h1>
+                <p class="hero-desc">رزرو آنلاین وقت در آرایشگاه مردانه قیچی و مو</p>
+
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <div class="feature-icon"></div>
+                        <span class="feature-text">رزرو آسان و سریع</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">️</div>
+                        <span class="feature-text">پرداخت امن</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✂️</div>
+                        <span class="feature-text">خدمات حرفه‌ای</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Left Side -->
+            <div class="hero-left">
+                <div class="hero-image-area">
+                    <div class="floating-scissors">✂️</div>
+                </div>
+
+                <div class="hero-form">
+                    <div class="form-input">
+                        <span class="icon">👤</span>
+                        <input type="text" id="firstName" placeholder="نام و نام خانوادگی">
+                    </div>
+                    <div class="form-input">
+                        <span class="icon">📞</span>
+                        <input type="tel" id="phone" placeholder="شماره تماس">
+                    </div>
+                    <button class="btn-gold" onclick="goToServices()">
+                        <span class="arrow">‹</span>
+                        ادامه و انتخاب خدمات
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="container">
-        <header>
-            <h1>✂️ آرایشگاه مردانه پرستیژ ✂️</h1>
-            <p>رزرو آنلاین نوبت، تجربه‌ای متفاوت از آراستگی</p>
-        </header>
-
-        <!-- Screen 1: Booking Form -->
-        <div id="screen-booking" class="screen active">
-            
-            <!-- Personal Info -->
-            <div class="card">
-                <h2 class="card-title">👤 مشخصات مشتری</h2>
-                <div class="input-group">
-                    <input type="text" id="firstName" placeholder="نام">
-                    <input type="text" id="lastName" placeholder="نام خانوادگی">
+    <!-- ==================== MAIN CONTENT (Services + Date/Time) ==================== -->
+    <div id="mainContent" class="main-content">
+        <div class="content-grid">
+            <!-- Services Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-header-icon">✂️</div>
+                    <h2>انتخاب خدمات</h2>
                 </div>
-                <div class="input-group full">
-                    <input type="tel" id="phone" placeholder="شماره تماس (مثال: 09123456789)">
-                </div>
-            </div>
 
-            <!-- Services -->
-            <div class="card">
-                <h2 class="card-title">💈 انتخاب خدمات</h2>
                 <div class="services-grid" id="servicesGrid">
-                    <!-- Services will be injected by JS -->
+                    <!-- JS injected -->
+                </div>
+
+                <div class="cart-summary">
+                    <div class="cart-icon-area">
+                        <div class="cart-icon">
+                            🛒
+                            <span class="cart-badge" id="cartBadge">0</span>
+                        </div>
+                    </div>
+                    <div class="cart-total">
+                        <div class="label">مجموع کل</div>
+                        <div class="amount" id="totalPrice"> تومان</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Date & Time -->
-            <div class="card">
-                <h2 class="card-title">📅 انتخاب تاریخ و ساعت</h2>
-                
-                <div class="date-display">
-                    <div class="day">چهارشنبه</div>
-                    <div class="full-date">۲۳ مهر ۱۴۰۵ (۱۴ اکتبر ۲۰۲۶)</div>
+            <!-- Date & Time Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-header-icon">📅</div>
+                    <h2>انتخاب تاریخ و ساعت</h2>
                 </div>
 
-                <h3 style="color: #ccc; margin-bottom: 15px; font-size: 1rem;">ساعت‌های موجود:</h3>
+                <div class="date-cards">
+                    <div class="date-card selected" onclick="selectDate(this, 'چهارشنبه')">
+                        <div class="cal-icon">📅</div>
+                        <div class="day-name">چهارشنبه</div>
+                        <div class="day-label">امروز</div>
+                        <div class="day-date">۳ اردیبهشت</div>
+                    </div>
+                    <div class="date-card" onclick="selectDate(this, 'پنجشنبه')">
+                        <div class="cal-icon">📅</div>
+                        <div class="day-name">پنجشنبه</div>
+                        <div class="day-label">فردا</div>
+                        <div class="day-date">۲۴ اردیبهشت</div>
+                    </div>
+                </div>
+
+                <div class="time-section-title">
+                    <span>🕐</span>
+                    انتخاب ساعت
+                </div>
+
                 <div class="time-grid" id="timeGrid">
-                    <!-- Times will be injected by JS -->
+                    <!-- JS injected -->
                 </div>
-            </div>
 
-            <!-- Footer Bar -->
-            <div class="footer-bar">
-                <div class="total-price">
-                    مبلغ کل: <span id="totalPrice">۰</span> تومان
-                </div>
-                <button class="btn btn-primary" onclick="goToPayment()">پرداخت و تایید نهایی</button>
+                <button class="btn-continue" onclick="goToPayment()">
+                    <span>‹</span>
+                    ادامه و پرداخت
+                </button>
             </div>
         </div>
+    </div>
 
-        <!-- Screen 2: Mock Payment -->
-        <div id="screen-payment" class="screen">
-            <div class="payment-box">
-                <div class="payment-header">
-                    <svg width="60" height="60" viewBox="0 0 24 24" fill="#0055aa"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
-                    <h3>درگاه پرداخت امن</h3>
-                    <p style="color: #666; font-size: 0.9rem;">مبلغ قابل پرداخت: <strong id="payAmount" style="color: #000;"></strong> تومان</p>
+    <!-- ==================== PAYMENT SCREEN ==================== -->
+    <div id="paymentScreen" class="payment-screen">
+        <div class="payment-card">
+            <div class="payment-header">
+                <button class="back-btn" onclick="backToMain()">→</button>
+                <h2><span class="lock-icon"></span> پرداخت آنلاین</h2>
+            </div>
+
+            <p class="payment-subtitle">اطلاعات کارت بانکی</p>
+
+            <div class="pay-field">
+                <label>شماره کارت</label>
+                <div class="pay-input-wrapper">
+                    <input type="text" class="pay-input" id="cardNumber" placeholder="xxxx-xxxx-xxxx-xxxx" maxlength="19" oninput="formatCard(this)">
+                    <span class="pay-input-icon">💳</span>
                 </div>
-                
-                <label style="font-size: 0.9rem; color: #555;">شماره کارت</label>
-                <input type="text" class="pay-input" placeholder="xxxx-xxxx-xxxx-xxxx" maxlength="19" id="cardNumber">
-                
-                <div class="pay-row">
-                    <div>
-                        <label style="font-size: 0.9rem; color: #555;">CVV2</label>
-                        <input type="text" class="pay-input" placeholder="***" maxlength="4" id="cvv2">
-                    </div>
-                    <div>
-                        <label style="font-size: 0.9rem; color: #555;">تاریخ انقضا</label>
-                        <input type="text" class="pay-input" placeholder="mm/yy" maxlength="5" id="expDate">
+            </div>
+
+            <div class="pay-row">
+                <div class="pay-field">
+                    <label>رمز پویا / دوم</label>
+                    <div class="pay-input-wrapper">
+                        <input type="password" class="pay-input" id="payPass" placeholder="••••••" maxlength="8">
                     </div>
                 </div>
+                <div class="pay-field">
+                    <label>CVV2</label>
+                    <div class="pay-input-wrapper">
+                        <input type="text" class="pay-input" id="cvv2" placeholder="***" maxlength="4">
+                        <span class="pay-input-icon"></span>
+                    </div>
+                </div>
+            </div>
 
-                <label style="font-size: 0.9rem; color: #555;">رمز پویا (اینترنتی)</label>
-                <input type="password" class="pay-input" placeholder="رمز کارت" id="payPass">
+            <div class="pay-field">
+                <label>تاریخ انقضا</label>
+                <div class="pay-input-wrapper">
+                    <input type="text" class="pay-input" id="expDate" placeholder="ماه / سال" maxlength="7" oninput="formatExp(this)">
+                </div>
+            </div>
 
-                <button class="btn-pay" onclick="processPayment()">پرداخت</button>
-                <button class="btn btn-secondary" style="width: 100%; margin-top: 10px;" onclick="backToBooking()">انصراف</button>
+            <button class="btn-pay-green" id="payBtn" onclick="processPayment()">
+                ← پرداخت
+            </button>
+
+            <div class="payment-footer">
+                <div class="payment-footer-item">
+                    <span class="pf-icon">🔒</span>
+                    اطلاعات شما محفوظ است
+                </div>
+                <div class="payment-footer-item">
+                    <span class="pf-icon">🛡️</span>
+                    درگاه پرداخت امن
+                </div>
             </div>
         </div>
+    </div>
 
-        <!-- Screen 3: Success -->
-        <div id="screen-success" class="screen">
-            <div class="success-box">
-                <div class="checkmark-circle">
-                    <svg viewBox="0 0 52 52">
-                        <circle class="circle" cx="26" cy="26" r="24" />
-                        <path class="check" d="M14 27l7 7 16-16" />
+    <!-- ==================== SUCCESS SCREEN ==================== -->
+    <div id="successScreen" class="success-screen">
+        <div class="success-card">
+            <div class="confetti-container" id="confettiContainer"></div>
+
+            <div class="success-checkmark">
+                <div class="circle-bg">
+                    <svg viewBox="0 0 50 50">
+                        <path class="check-path" d="M14 26 L22 34 L36 18" />
                     </svg>
                 </div>
-                <h2>پرداخت موفقیت‌آمیز بود!</h2>
-                <p>
-                    رزرو شما با موفقیت ثبت شد.<br>
-                    لطفاً در زمان ثبت شده به آرایشگاه خود مراجعه نمایید.<br>
-                    <span style="color: var(--gold); font-weight: bold;">بی صبرانه منتظر دیدار شما هستیم ✂️</span>
-                </p>
-                <button class="btn btn-primary" style="margin-top: 30px;" onclick="resetAll()">بازگشت به صفحه اصلی</button>
             </div>
-        </div>
 
+            <h2 class="success-title">رزرو شما با موفقیت ثبت شد</h2>
+            <p class="success-desc">لطفاً در زمان ثبت شده به آرایشگاه خود مراجعه نمایید.</p>
+
+            <div class="success-details">
+                <div class="detail-row">
+                    <div class="d-label">✂️ خدمات انتخابی</div>
+                    <div class="d-value" id="successServices">۳ خدمت</div>
+                </div>
+                <div class="detail-row">
+                    <div class="d-label">📅 تاریخ</div>
+                    <div class="d-value" id="successDate">چهارشنبه ۲۳ اردیبهشت</div>
+                </div>
+                <div class="detail-row">
+                    <div class="d-label">🕐 ساعت</div>
+                    <div class="d-value" id="successTime">20:30 - 21:30</div>
+                </div>
+                <div class="detail-row">
+                    <div class="d-label">💳 مبلغ پرداختی</div>
+                    <div class="d-value green" id="successAmount">850,000 تومان</div>
+                </div>
+            </div>
+
+            <button class="btn-home" onclick="resetAll()">
+                🏠 بازگشت به صفحه اصلی
+            </button>
+        </div>
     </div>
 
     <script>
-        // Data
+        // ============ DATA ============
         const services = [
-            { id: 1, name: 'کوتاهی و اصلاح', price: 300000 },
-            { id: 2, name: 'پروتز مو، ترمیم مو و اکستنشن مو', price: 250000 },
-            { id: 3, name: 'گریم داماد', price: 450000 },
-            { id: 4, name: 'ویتامینه و بوتاکس مو', price: 300000 },
-            { id: 5, name: 'بافت و دردلاک', price: 420000 },
-            { id: 6, name: 'طراحی مدل موی داماد', price: 200000 },
-            { id: 7, name: 'جوانسازی پوست', price: 200000 }
+            { id: 1, name: 'کوتاهی و اصلاح', price: 300000, icon: '💇‍♂️' },
+            { id: 2, name: 'پروتز مو، ترمیم مو و اکستنشن مو', price: 250000, icon: '🧴' },
+            { id: 3, name: 'گریم داماد', price: 450000, icon: '🤵' },
+            { id: 4, name: 'ویتامینه و بوتاکس مو', price: 300000, icon: '💆♂️' },
+            { id: 5, name: 'بافت و دردلاک', price: 420000, icon: '🪢' },
+            { id: 6, name: 'طراحی مدل موی داماد', price: 200000, icon: '👑' },
+            { id: 7, name: 'جوانسازی پوست', price: 200000, icon: '✨' }
         ];
 
         const timeSlots = [
-            '07:30 تا 08:30', '09:00 تا 10:30', '11:00 تا 12:00',
-            '12:30 تا 13:30', '15:45 تا 16:30', '16:45 تا 17:15',
-            '18:00 تا 18:30', '19:00 تا 19:30', '19:45 تا 20:00',
-            '20:30 تا 21:30', '22:10 تا 23:00'
+            '07:30 - 08:30', '09:00 - 10:30', '11:00 - 12:00',
+            '12:30 - 13:30', '15:45 - 16:30', '16:45 - 17:15',
+            '18:00 - 18:30', '19:00 - 19:30', '19:45 - 20:00',
+            '20:30 - 21:30', '22:10 - 23:00'
         ];
 
         let selectedServices = [];
         let selectedTime = '';
+        let selectedDay = 'چهارشنبه';
 
-        // Render Services
-        const servicesGrid = document.getElementById('servicesGrid');
-        services.forEach(service => {
-            const div = document.createElement('div');
-            div.className = 'service-item';
-            div.innerHTML = `
-                <span class="title">${service.name}</span>
-                <span class="price">${service.price.toLocaleString('fa-IR')} ت</span>
-            `;
-            div.onclick = () => toggleService(service.id, div);
-            servicesGrid.appendChild(div);
-        });
-
-        // Render Times
-        const timeGrid = document.getElementById('timeGrid');
-        timeSlots.forEach(time => {
-            const div = document.createElement('div');
-            div.className = 'time-slot';
-            div.innerText = time;
-            div.onclick = () => selectTime(time, div);
-            timeGrid.appendChild(div);
-        });
-
-        // Functions
-        function toggleService(id, element) {
-            if (selectedServices.includes(id)) {
-                selectedServices = selectedServices.filter(s => s !== id);
-                element.classList.remove('selected');
-            } else {
-                selectedServices.push(id);
-                element.classList.add('selected');
-            }
-            updateTotal();
+        // ============ INIT ============
+        function init() {
+            renderServices();
+            renderTimes();
         }
 
-        function selectTime(time, element) {
-            document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
-            element.classList.add('selected');
+        function renderServices() {
+            const grid = document.getElementById('servicesGrid');
+            grid.innerHTML = '';
+            services.forEach(s => {
+                const div = document.createElement('div');
+                div.className = 'service-card';
+                div.innerHTML = `
+                    <div class="svc-icon">${s.icon}</div>
+                    <div class="svc-info">
+                        <div class="svc-name">${s.name}</div>
+                        <div class="svc-price">${s.price.toLocaleString('fa-IR')} تومان</div>
+                    </div>
+                    <div class="check-mark">✓</div>
+                `;
+                div.onclick = () => toggleService(s.id, div);
+                grid.appendChild(div);
+            });
+        }
+
+        function renderTimes() {
+            const grid = document.getElementById('timeGrid');
+            grid.innerHTML = '';
+            timeSlots.forEach(t => {
+                const div = document.createElement('div');
+                div.className = 'time-slot';
+                div.innerText = t;
+                div.onclick = () => selectTime(t, div);
+                grid.appendChild(div);
+            });
+        }
+
+        // ============ INTERACTIONS ============
+        function toggleService(id, el) {
+            if (selectedServices.includes(id)) {
+                selectedServices = selectedServices.filter(s => s !== id);
+                el.classList.remove('selected');
+            } else {
+                selectedServices.push(id);
+                el.classList.add('selected');
+            }
+            updateCart();
+        }
+
+        function selectTime(time, el) {
+            document.querySelectorAll('.time-slot').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
             selectedTime = time;
         }
 
-        function updateTotal() {
-            let total = 0;
-            selectedServices.forEach(id => {
-                const service = services.find(s => s.id === id);
-                total += service.price;
-            });
-            document.getElementById('totalPrice').innerText = total.toLocaleString('fa-IR');
+        function selectDate(el, day) {
+            document.querySelectorAll('.date-card').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedDay = day;
         }
 
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(screenId).classList.add('active');
+        function updateCart() {
+            let total = 0;
+            selectedServices.forEach(id => {
+                total += services.find(s => s.id === id).price;
+            });
+            document.getElementById('totalPrice').innerText = total.toLocaleString('fa-IR') + ' تومان';
+            document.getElementById('cartBadge').innerText = selectedServices.length;
+        }
+
+        // ============ NAVIGATION ============
+        function goToServices() {
+            const name = document.getElementById('firstName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            if (!name || !phone) {
+                alert('لطفاً نام و شماره تماس خود را وارد کنید.');
+                return;
+            }
+            document.getElementById('heroScreen').style.display = 'none';
+            document.getElementById('mainContent').classList.add('active');
             window.scrollTo(0, 0);
         }
 
         function goToPayment() {
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const phone = document.getElementById('phone').value;
-
-            if (!firstName || !lastName || !phone) {
-                alert('لطفاً مشخصات خود را کامل وارد کنید.');
-                return;
-            }
             if (selectedServices.length === 0) {
                 alert('لطفاً حداقل یک خدمت را انتخاب کنید.');
                 return;
             }
             if (!selectedTime) {
-                alert('لطفاً ساعت مراجعه خود را انتخاب کنید.');
+                alert('لطفاً ساعت مراجعه را انتخاب کنید.');
                 return;
             }
+            document.getElementById('mainContent').classList.remove('active');
+            document.getElementById('paymentScreen').classList.add('active');
+            window.scrollTo(0, 0);
+        }
 
-            let total = 0;
-            selectedServices.forEach(id => {
-                total += services.find(s => s.id === id).price;
-            });
-            
-            document.getElementById('payAmount').innerText = total.toLocaleString('fa-IR');
-            showScreen('screen-payment');
+        function backToMain() {
+            document.getElementById('paymentScreen').classList.remove('active');
+            document.getElementById('mainContent').classList.add('active');
+            window.scrollTo(0, 0);
         }
 
         function processPayment() {
@@ -666,38 +1413,84 @@
                 return;
             }
 
-            // Simulate payment processing
-            const btn = document.querySelector('.btn-pay');
-            btn.innerText = 'در حال پردازش...';
+            const btn = document.getElementById('payBtn');
+            btn.innerHTML = '⏳ در حال پردازش...';
             btn.disabled = true;
 
             setTimeout(() => {
-                btn.innerText = 'پرداخت';
+                btn.innerHTML = '← پرداخت';
                 btn.disabled = false;
-                showScreen('screen-success');
-            }, 2000);
-        }
 
-        function backToBooking() {
-            showScreen('screen-booking');
+                // Fill success details
+                let total = 0;
+                selectedServices.forEach(id => { total += services.find(s => s.id === id).price; });
+                document.getElementById('successServices').innerText = selectedServices.length + ' خدمت';
+                document.getElementById('successDate').innerText = selectedDay + ' ۲۳ اردیبهشت';
+                document.getElementById('successTime').innerText = selectedTime;
+                document.getElementById('successAmount').innerText = total.toLocaleString('fa-IR') + ' تومان';
+
+                document.getElementById('paymentScreen').classList.remove('active');
+                document.getElementById('successScreen').classList.add('active');
+                launchConfetti();
+                window.scrollTo(0, 0);
+            }, 2500);
         }
 
         function resetAll() {
+            selectedServices = [];
+            selectedTime = '';
+            selectedDay = 'چهارشنبه';
             document.getElementById('firstName').value = '';
-            document.getElementById('lastName').value = '';
             document.getElementById('phone').value = '';
             document.getElementById('cardNumber').value = '';
             document.getElementById('cvv2').value = '';
             document.getElementById('expDate').value = '';
             document.getElementById('payPass').value = '';
-            
-            selectedServices = [];
-            selectedTime = '';
-            document.querySelectorAll('.service-item, .time-slot').forEach(el => el.classList.remove('selected'));
-            updateTotal();
-            
-            showScreen('screen-booking');
+            updateCart();
+            document.querySelectorAll('.service-card, .time-slot').forEach(e => e.classList.remove('selected'));
+            document.querySelectorAll('.date-card').forEach((e, i) => {
+                e.classList.toggle('selected', i === 0);
+            });
+
+            document.getElementById('successScreen').classList.remove('active');
+            document.getElementById('heroScreen').style.display = 'flex';
+            window.scrollTo(0, 0);
         }
+
+        // ============ FORMATTING ============
+        function formatCard(input) {
+            let v = input.value.replace(/\D/g, '').substring(0, 16);
+            let formatted = v.match(/.{1,4}/g)?.join('-') || v;
+            input.value = formatted;
+        }
+
+        function formatExp(input) {
+            let v = input.value.replace(/\D/g, '').substring(0, 4);
+            if (v.length >= 2) v = v.substring(0, 2) + ' / ' + v.substring(2);
+            input.value = v;
+        }
+
+        // ============ CONFETTI ============
+        function launchConfetti() {
+            const container = document.getElementById('confettiContainer');
+            container.innerHTML = '';
+            const colors = ['#00c853', '#c9a84c', '#ffffff', '#00e676', '#ffd700'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = -10 + 'px';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+                confetti.style.width = (5 + Math.random() * 8) + 'px';
+                confetti.style.height = (5 + Math.random() * 8) + 'px';
+                container.appendChild(confetti);
+            }
+        }
+
+        // Init
+        init();
     </script>
 </body>
 </html>
