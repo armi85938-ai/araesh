@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آرایشگاه مردانه پرستیژ | رزرو نوبت</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        :root {
+            --bg-dark: #0f0f12;
+            --bg-card: #1a1a20;
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --text-main: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --success: #00c853;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- Background Animations (Scissors & Hair) --- */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+
+        .scissors {
+            position: absolute;
+            font-size: 4rem;
+            animation: floatScissors 8s infinite ease-in-out;
+        }
+        .scissors:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .scissors:nth-child(2) { top: 70%; left: 85%; animation-delay: 2s; font-size: 3rem;}
+        .scissors:nth-child(3) { top: 40%; left: 90%; animation-delay: 4s; font-size: 5rem;}
+        .scissors:nth-child(4) { top: 80%; left: 10%; animation-delay: 1s; font-size: 3.5rem;}
+
+        .hair-strand {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 3px solid var(--gold);
+            border-radius: 50% 0 50% 0;
+            animation: floatHair 10s infinite linear;
+        }
+        .hair-strand:nth-child(5) { top: 20%; left: 80%; animation-delay: 0s; }
+        .hair-strand:nth-child(6) { top: 60%; left: 15%; animation-delay: 3s; width: 100px; height: 100px;}
+
+        @keyframes floatScissors {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(20deg); }
+        }
+
+        @keyframes floatHair {
+            0% { transform: rotate(0deg) scale(1); opacity: 0.5; }
+            50% { transform: rotate(180deg) scale(1.1); opacity: 0.8; }
+            100% { transform: rotate(360deg) scale(1); opacity: 0.5; }
+        }
+
+        /* --- Main Container --- */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Form Elements --- */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid #333;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .input-group.full {
+            grid-template-columns: 1fr;
+        }
+
+        input[type="text"], input[type="tel"], input[type="password"] {
+            width: 100%;
+            padding: 14px;
+            background: #25252c;
+            border: 1px solid #444;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        /* --- Services Grid --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .service-item {
+            background: #25252c;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .service-item:hover {
+            background: #2d2d36;
+        }
+
+        .service-item.selected {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .service-item .title {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .service-item .price {
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        /* --- Date & Time --- */
+        .date-display {
+            background: linear-gradient(135deg, #2a2a32, #1f1f25);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .date-display .day {
+            font-size: 1.8rem;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .date-display .full-date {
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
+
+        .time-slot {
+            background: #25252c;
+            border: 1px solid #444;
+            padding: 12px;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .time-slot:hover {
+            background: #333;
+        }
+
+        .time-slot.selected {
+            background: var(--gold);
+            color: #000;
+            font-weight: bold;
+            border-color: var(--gold);
+        }
+
+        /* --- Footer / Total --- */
+        .footer-bar {
+            position: sticky;
+            bottom: 20px;
+            background: rgba(26, 26, 32, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--gold);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+            margin-top: 30px;
+        }
+
+        .total-price {
+            font-size: 1.2rem;
+        }
+
+        .total-price span {
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), #b5952f);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background: #333;
+            color: white;
+        }
+
+        /* --- Payment Screen --- */
+        .payment-box {
+            max-width: 450px;
+            margin: 40px auto;
+            background: #fff;
+            color: #333;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .payment-header {
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .payment-header img {
+            width: 60px;
+            margin-bottom: 10px;
+        }
+
+        .payment-header h3 {
+            color: #0055aa;
+        }
+
+        .pay-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: #333;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .pay-input:focus {
+            border-color: #0055aa;
+            outline: none;
+        }
+
+        .pay-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .btn-pay {
+            width: 100%;
+            background: #0055aa;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* --- Success Screen --- */
+        .success-box {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .checkmark-circle {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+        }
+
+        .checkmark-circle svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .circle {
+            fill: none;
+            stroke: var(--success);
+            stroke-width: 4;
+            stroke-dasharray: 350;
+            stroke-dashoffset: 350;
+            animation: drawCircle 1s ease-out forwards;
+        }
+
+        .check {
+            fill: none;
+            stroke: var(--success);
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: drawCheck 0.6s 0.8s ease-out forwards;
+        }
+
+        @keyframes drawCircle {
+            to { stroke-dashoffset: 0; }
+        }
+
+        @keyframes drawCheck {
+            to { stroke-dashoffset: 0; }
+        }
+
+        .success-box h2 {
+            color: var(--success);
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .success-box p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 2;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .input-group { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: 1fr; }
+            .footer-bar { flex-direction: column; gap: 15px; }
+            .btn { width: 100%; }
+            header h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Animations -->
+    <div class="bg-animation">
+        <div class="scissors">✂️</div>
+        <div class="scissors">✂️</div>
+        <div class="scissors">✂️</div>
+        <div class="scissors">✂️</div>
+        <div class="hair-strand"></div>
+        <div class="hair-strand"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>✂️ آرایشگاه مردانه پرستیژ ✂️</h1>
+            <p>رزرو آنلاین نوبت، تجربه‌ای متفاوت از آراستگی</p>
+        </header>
+
+        <!-- Screen 1: Booking Form -->
+        <div id="screen-booking" class="screen active">
+            
+            <!-- Personal Info -->
+            <div class="card">
+                <h2 class="card-title">👤 مشخصات مشتری</h2>
+                <div class="input-group">
+                    <input type="text" id="firstName" placeholder="نام">
+                    <input type="text" id="lastName" placeholder="نام خانوادگی">
+                </div>
+                <div class="input-group full">
+                    <input type="tel" id="phone" placeholder="شماره تماس (مثال: 09123456789)">
+                </div>
+            </div>
+
+            <!-- Services -->
+            <div class="card">
+                <h2 class="card-title">💈 انتخاب خدمات</h2>
+                <div class="services-grid" id="servicesGrid">
+                    <!-- Services will be injected by JS -->
+                </div>
+            </div>
+
+            <!-- Date & Time -->
+            <div class="card">
+                <h2 class="card-title">📅 انتخاب تاریخ و ساعت</h2>
+                
+                <div class="date-display">
+                    <div class="day">چهارشنبه</div>
+                    <div class="full-date">۲۳ مهر ۱۴۰۵ (۱۴ اکتبر ۲۰۲۶)</div>
+                </div>
+
+                <h3 style="color: #ccc; margin-bottom: 15px; font-size: 1rem;">ساعت‌های موجود:</h3>
+                <div class="time-grid" id="timeGrid">
+                    <!-- Times will be injected by JS -->
+                </div>
+            </div>
+
+            <!-- Footer Bar -->
+            <div class="footer-bar">
+                <div class="total-price">
+                    مبلغ کل: <span id="totalPrice">۰</span> تومان
+                </div>
+                <button class="btn btn-primary" onclick="goToPayment()">پرداخت و تایید نهایی</button>
+            </div>
+        </div>
+
+        <!-- Screen 2: Mock Payment -->
+        <div id="screen-payment" class="screen">
+            <div class="payment-box">
+                <div class="payment-header">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="#0055aa"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+                    <h3>درگاه پرداخت امن</h3>
+                    <p style="color: #666; font-size: 0.9rem;">مبلغ قابل پرداخت: <strong id="payAmount" style="color: #000;"></strong> تومان</p>
+                </div>
+                
+                <label style="font-size: 0.9rem; color: #555;">شماره کارت</label>
+                <input type="text" class="pay-input" placeholder="xxxx-xxxx-xxxx-xxxx" maxlength="19" id="cardNumber">
+                
+                <div class="pay-row">
+                    <div>
+                        <label style="font-size: 0.9rem; color: #555;">CVV2</label>
+                        <input type="text" class="pay-input" placeholder="***" maxlength="4" id="cvv2">
+                    </div>
+                    <div>
+                        <label style="font-size: 0.9rem; color: #555;">تاریخ انقضا</label>
+                        <input type="text" class="pay-input" placeholder="mm/yy" maxlength="5" id="expDate">
+                    </div>
+                </div>
+
+                <label style="font-size: 0.9rem; color: #555;">رمز پویا (اینترنتی)</label>
+                <input type="password" class="pay-input" placeholder="رمز کارت" id="payPass">
+
+                <button class="btn-pay" onclick="processPayment()">پرداخت</button>
+                <button class="btn btn-secondary" style="width: 100%; margin-top: 10px;" onclick="backToBooking()">انصراف</button>
+            </div>
+        </div>
+
+        <!-- Screen 3: Success -->
+        <div id="screen-success" class="screen">
+            <div class="success-box">
+                <div class="checkmark-circle">
+                    <svg viewBox="0 0 52 52">
+                        <circle class="circle" cx="26" cy="26" r="24" />
+                        <path class="check" d="M14 27l7 7 16-16" />
+                    </svg>
+                </div>
+                <h2>پرداخت موفقیت‌آمیز بود!</h2>
+                <p>
+                    رزرو شما با موفقیت ثبت شد.<br>
+                    لطفاً در زمان ثبت شده به آرایشگاه خود مراجعه نمایید.<br>
+                    <span style="color: var(--gold); font-weight: bold;">بی صبرانه منتظر دیدار شما هستیم ✂️</span>
+                </p>
+                <button class="btn btn-primary" style="margin-top: 30px;" onclick="resetAll()">بازگشت به صفحه اصلی</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Data
+        const services = [
+            { id: 1, name: 'کوتاهی و اصلاح', price: 300000 },
+            { id: 2, name: 'پروتز مو، ترمیم مو و اکستنشن مو', price: 250000 },
+            { id: 3, name: 'گریم داماد', price: 450000 },
+            { id: 4, name: 'ویتامینه و بوتاکس مو', price: 300000 },
+            { id: 5, name: 'بافت و دردلاک', price: 420000 },
+            { id: 6, name: 'طراحی مدل موی داماد', price: 200000 },
+            { id: 7, name: 'جوانسازی پوست', price: 200000 }
+        ];
+
+        const timeSlots = [
+            '07:30 تا 08:30', '09:00 تا 10:30', '11:00 تا 12:00',
+            '12:30 تا 13:30', '15:45 تا 16:30', '16:45 تا 17:15',
+            '18:00 تا 18:30', '19:00 تا 19:30', '19:45 تا 20:00',
+            '20:30 تا 21:30', '22:10 تا 23:00'
+        ];
+
+        let selectedServices = [];
+        let selectedTime = '';
+
+        // Render Services
+        const servicesGrid = document.getElementById('servicesGrid');
+        services.forEach(service => {
+            const div = document.createElement('div');
+            div.className = 'service-item';
+            div.innerHTML = `
+                <span class="title">${service.name}</span>
+                <span class="price">${service.price.toLocaleString('fa-IR')} ت</span>
+            `;
+            div.onclick = () => toggleService(service.id, div);
+            servicesGrid.appendChild(div);
+        });
+
+        // Render Times
+        const timeGrid = document.getElementById('timeGrid');
+        timeSlots.forEach(time => {
+            const div = document.createElement('div');
+            div.className = 'time-slot';
+            div.innerText = time;
+            div.onclick = () => selectTime(time, div);
+            timeGrid.appendChild(div);
+        });
+
+        // Functions
+        function toggleService(id, element) {
+            if (selectedServices.includes(id)) {
+                selectedServices = selectedServices.filter(s => s !== id);
+                element.classList.remove('selected');
+            } else {
+                selectedServices.push(id);
+                element.classList.add('selected');
+            }
+            updateTotal();
+        }
+
+        function selectTime(time, element) {
+            document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedTime = time;
+        }
+
+        function updateTotal() {
+            let total = 0;
+            selectedServices.forEach(id => {
+                const service = services.find(s => s.id === id);
+                total += service.price;
+            });
+            document.getElementById('totalPrice').innerText = total.toLocaleString('fa-IR');
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function goToPayment() {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const phone = document.getElementById('phone').value;
+
+            if (!firstName || !lastName || !phone) {
+                alert('لطفاً مشخصات خود را کامل وارد کنید.');
+                return;
+            }
+            if (selectedServices.length === 0) {
+                alert('لطفاً حداقل یک خدمت را انتخاب کنید.');
+                return;
+            }
+            if (!selectedTime) {
+                alert('لطفاً ساعت مراجعه خود را انتخاب کنید.');
+                return;
+            }
+
+            let total = 0;
+            selectedServices.forEach(id => {
+                total += services.find(s => s.id === id).price;
+            });
+            
+            document.getElementById('payAmount').innerText = total.toLocaleString('fa-IR');
+            showScreen('screen-payment');
+        }
+
+        function processPayment() {
+            const card = document.getElementById('cardNumber').value;
+            const cvv = document.getElementById('cvv2').value;
+            const exp = document.getElementById('expDate').value;
+            const pass = document.getElementById('payPass').value;
+
+            if (!card || !cvv || !exp || !pass) {
+                alert('لطفاً تمام اطلاعات کارت را وارد کنید.');
+                return;
+            }
+
+            // Simulate payment processing
+            const btn = document.querySelector('.btn-pay');
+            btn.innerText = 'در حال پردازش...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerText = 'پرداخت';
+                btn.disabled = false;
+                showScreen('screen-success');
+            }, 2000);
+        }
+
+        function backToBooking() {
+            showScreen('screen-booking');
+        }
+
+        function resetAll() {
+            document.getElementById('firstName').value = '';
+            document.getElementById('lastName').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('cardNumber').value = '';
+            document.getElementById('cvv2').value = '';
+            document.getElementById('expDate').value = '';
+            document.getElementById('payPass').value = '';
+            
+            selectedServices = [];
+            selectedTime = '';
+            document.querySelectorAll('.service-item, .time-slot').forEach(el => el.classList.remove('selected'));
+            updateTotal();
+            
+            showScreen('screen-booking');
+        }
+    </script>
+</body>
+</html>
